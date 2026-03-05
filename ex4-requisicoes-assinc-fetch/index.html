@@ -3,53 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exercício 5 fazer contador</title>
-  <style>
-    /* Define o estilo inicial da div */
-    #myDiv {
-      width: 200px;
-      height: 200px;
-      background-color: rgb(255, 0, 0);
-      margin-top: 20px;
-    }
-  </style>
+  <title>Exercício 4: Requisições Assíncronas</title>
 </head>
 <body>
-  <!-- Botão que será usado para mudar a cor da div -->
-  <button id="myButton">Contador</button>
+  <!-- Botão para buscar dados de uma API -->
+  <button id="myButton">Buscar Dados</button>
 
-  <div id="contador">0</div>
-
-  <!-- Div que terá sua cor de fundo alterada -->
-  <p id="myDiv"></p>
+  <!-- Parágrafo onde os dados serão exibidos -->
+  <p id="myText"></p>
 
   <!-- Script JavaScript embutido na página -->
   <script>
-    // Seleciona o botão e a div pelo ID
-
-    // 1ª Digitação (Aqui)
+    // Seleciona o botão e o parágrafo pelo ID
     const button = document.querySelector('#myButton');
-    const div = document.querySelector('#myDiv');
+    const text = document.querySelector('#myText');
+
+    // Uma API (Application Programming Interface) é uma interface que permite a comunicação entre sistemas e o compartilhamento de dados. No exemplo, a página utiliza a função fetch para enviar uma requisição assíncrona à API https://jsonplaceholder.typicode.com/todos/2, retornando informações no formato JSON. Esses dados são processados e exibidos no parágrafo da página, incluindo detalhes como userId, id, title e completed. Caso haja um erro na requisição, uma mensagem de erro é apresentada ao usuário.
 
     // Adiciona um evento de clique ao botão
-      let cliques = 0;
-    
-    const Button = document.querySelector("#myButton");
-    const paragrafo = document.querySelector("#contador");
+    button.addEventListener('click', () => {
+      // Faz uma requisição assíncrona à API
+      fetch('https://jsonplaceholder.typicode.com/todos/2')
 
-    button.addEventListener("click", () =>  {
-        cliques++;
-        paragrafo.textContent = + cliques;
+      // Para simular erro de requisição
+      // fetch('https://invalidurl.example.com')
 
-        
-      // Verifica a cor atual da div e alterna entre lightblue e lightcoral
-      if (div.style.backgroundColor === 'rgb(255, 0, 0)') {
-        div.style.backgroundColor = 'rgb(0, 255, 68)';
-      } else {
-        div.style.backgroundColor = 'rgb(255, 0, 0)';
-      }
+          // 1ª Digitação (Aqui)
+        .then(response => response.json() )
+
+        .then(data => { 
+
+          // Exibe todos os parâmetros da resposta no parágrafo
+        text.innerHTML = `
+         User ID: ${data.UserID}<br>
+         ID: ${data.id}<br>
+         Titulo: ${data.title}<br>
+         Completo: ${data.completed}
+        `;
+        })
+          // Exibe uma mensagem de erro caso a requisição falhe
+        .catch(error => {
+          text.textContent = 'Erro ao buscar dados';
+        });
+
     });
-
 
   </script>
 </body>
