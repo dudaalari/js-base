@@ -58,6 +58,24 @@
 
        // 1ª Digitação (Resolva aqui o exercício)
 
+       // paragrafo onde a citação será exibida
+       const quoteText = document.getElementById("quote");
+
+       //seleciona o botão
+       const button = document.getElementById("newQuoteButton");
+
+       // p adicionar o evento de clique
+       button.addEventListener("click", function () {
+
+        //gerar o índice aleatório
+        const randomIndex = Math.floor(Math.random()*
+      quotes.length);
+
+      //exibe a citação correspondente no paragráfo
+      quoteText.textContent =
+      quotes[randomIndex];
+
+       });
 
   </script>
 </body>
